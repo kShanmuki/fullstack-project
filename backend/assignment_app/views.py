@@ -3,7 +3,6 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Assignment, Submission
 from django.contrib.auth.models import User
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
