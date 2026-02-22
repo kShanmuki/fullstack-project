@@ -24,9 +24,7 @@ export default function StudentDashboard() {
       if (file) {
         formData.append("submission_file", file);
       }
-
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/submit-assignment/",
+const res = await fetch("https://fullstack-project-4u0x.onrender.com/api/assignments");
         {
           method: "POST",
           body: formData,

@@ -30,7 +30,7 @@ export default function InstructorDashboard() {
       return;
     }
 
-    const res = await fetch("http://127.0.0.1:8000/api/create-assignment/", {
+   const res = await fetch("https://fullstack-project-4u0x.onrender.com/api/assignments"); {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
