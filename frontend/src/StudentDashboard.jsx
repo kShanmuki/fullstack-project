@@ -24,36 +24,33 @@ export default function StudentDashboard() {
       if (file) {
         formData.append("submission_file", file);
       }
-const res = await fetch("https://fullstack-project-4u0x.onrender.com/api/assignments");
+
+      const res = await fetch(
+        "http://127.0.0.1:8000/api/submit-assignment/",
         {
           method: "POST",
           body: formData,
         }
       );
 
-      // If backend error like 500
-      if (!response.ok) {
-        const errorText = await response.text();
+      if (!res.ok) {
+        const errorText = await res.text();
         console.log("Backend Error:", errorText);
         alert("Backend Error! Check Django terminal.");
         return;
       }
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (data.message) {
-        setStatus("Submitted Successfully!");
-        setFeedback(data.feedback || "Waiting for Instructor review...");
-        alert("Assignment Submitted!");
+      setStatus("Submitted Successfully!");
+      setFeedback(data.feedback || "Waiting for Instructor review...");
+      alert("Assignment Submitted!");
 
-        // Reset fields after submission
-        setStudentName("");
-        setAssignmentId("");
-        setText("");
-        setFile(null);
-      } else {
-        alert("Error: " + JSON.stringify(data));
-      }
+      setStudentName("");
+      setAssignmentId("");
+      setText("");
+      setFile(null);
+
     } catch (error) {
       alert("Backend not running or CORS issue");
       console.log(error);
@@ -70,11 +67,9 @@ const res = await fetch("https://fullstack-project-4u0x.onrender.com/api/assignm
         type="text"
         value={studentName}
         onChange={(e) => setStudentName(e.target.value)}
-        placeholder="Enter your name"
       />
 
-      <br />
-      <br />
+      <br /><br />
 
       <label>Assignment ID:</label>
       <br />
@@ -82,11 +77,9 @@ const res = await fetch("https://fullstack-project-4u0x.onrender.com/api/assignm
         type="number"
         value={assignmentId}
         onChange={(e) => setAssignmentId(e.target.value)}
-        placeholder="Enter assignment ID"
       />
 
-      <br />
-      <br />
+      <br /><br />
 
       <label>Assignment Text:</label>
       <br />
@@ -95,11 +88,9 @@ const res = await fetch("https://fullstack-project-4u0x.onrender.com/api/assignm
         cols="60"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Write your assignment here..."
-      ></textarea>
+      />
 
-      <br />
-      <br />
+      <br /><br />
 
       <label>Upload PDF:</label>
       <br />
@@ -109,14 +100,13 @@ const res = await fetch("https://fullstack-project-4u0x.onrender.com/api/assignm
         onChange={(e) => setFile(e.target.files[0])}
       />
 
-      <br />
-      <br />
+      <br /><br />
 
       <button onClick={submitAssignment}>Submit Assignment</button>
 
       <hr />
 
-      <h2>Submission Status</h2>
+      <h2>Status</h2>
       <p>{status}</p>
 
       <h2>Feedback</h2>
